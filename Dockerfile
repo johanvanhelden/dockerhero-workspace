@@ -69,7 +69,8 @@ RUN apt-get update && apt-get install -y \
         git \
         mercurial \
         zip \
-        vim
+        vim \
+        bash-completion
 
 # Set the timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -97,6 +98,12 @@ USER root
 RUN echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="/home/dockerhero/.nvm"' >> ~/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.bashrc
+
+# Copy artisan autocompleter to the proper folder
+COPY ./artisan-autocompletion.sh /etc/bash_completion.d/artisan
+
+# Add an artisan alias to .bashrc
+RUN echo 'alias artisan="php artisan"' >> /home/dockerhero/.bashrc
 
 # Clean up
 USER root
