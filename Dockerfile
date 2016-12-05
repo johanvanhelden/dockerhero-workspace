@@ -12,7 +12,7 @@ ENV LC_CTYPE=UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
-ARG NODE_VERSION=4.*
+ARG NODE_VERSION=6.*
 ENV NODE_VERSION ${NODE_VERSION}
 ENV NVM_DIR /home/dockerhero/.nvm
 
@@ -67,6 +67,7 @@ RUN groupadd -g $PGID dockerhero && \
 # Install usefull tools
 RUN apt-get update && apt-get install -y \
         git \
+        mercurial \
         zip \
         vim \
         bash-completion
