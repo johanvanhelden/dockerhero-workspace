@@ -110,13 +110,14 @@ RUN [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
 USER root
 RUN echo "" >> ~/.bashrc && \
     echo 'export YARN_DIR="/home/dockerhero/.yarn"' >> ~/.bashrc && \
-    echo 'export PATH="$YARN_DIR/bin:$PATH"' >> ~/.bashrc \
+    echo 'export PATH="$YARN_DIR/bin:$PATH"' >> ~/.bashrc
 
 # Copy artisan autocompleter to the proper folder
 COPY ./artisan-autocompletion.sh /etc/bash_completion.d/artisan
 
 # Add an artisan alias to .bashrc
-RUN echo 'alias artisan="php artisan"' >> /home/dockerhero/.bashrc
+RUN echo "" >> /home/dockerhero/.bashrc && \
+    echo 'alias artisan="php artisan"' >> /home/dockerhero/.bashrc
 
 # Clean up
 USER root
