@@ -99,6 +99,19 @@ RUN echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="/home/dockerhero/.nvm"' >> ~/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.bashrc
 
+#Install Yarn 
+USER dockerhero
+RUN [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
+    curl -o- -L https://yarnpkg.com/install.sh | bash; \
+    echo "" >> ~/.bashrc && \
+    echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> ~/.bashrc \
+    
+# Add Yarn binaries to root's .bashrc
+USER root
+RUN echo "" >> ~/.bashrc && \
+    echo 'export YARN_DIR="/home/dockerhero/.yarn"' >> ~/.bashrc && \
+    echo 'export PATH="$YARN_DIR/bin:$PATH"' >> ~/.bashrc \
+
 # Copy artisan autocompleter to the proper folder
 COPY ./artisan-autocompletion.sh /etc/bash_completion.d/artisan
 
