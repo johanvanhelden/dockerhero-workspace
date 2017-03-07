@@ -46,6 +46,7 @@ RUN apt-get update && \
         php7.1-gd \
         pkg-config \
         php7.1-dev \
+        php7.1-redis \
         libcurl4-openssl-dev \
         libedit-dev \
         libssl-dev \
@@ -65,7 +66,7 @@ RUN apt-get update && \
         bash-completion \
         xvfb gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
     && apt-get clean
-    
+
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
@@ -102,13 +103,13 @@ RUN echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="/home/dockerhero/.nvm"' >> ~/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.bashrc
 
-#Install Yarn 
+#Install Yarn
 USER dockerhero
 RUN [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
     curl -o- -L https://yarnpkg.com/install.sh | bash; \
     echo "" >> ~/.bashrc && \
     echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> ~/.bashrc \
-    
+
 # Add Yarn binaries to root's .bashrc
 USER root
 RUN echo "" >> ~/.bashrc && \
