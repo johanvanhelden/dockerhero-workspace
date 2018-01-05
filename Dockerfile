@@ -28,7 +28,7 @@ RUN apt-get install -y software-properties-common && \
 
 # Install "PHP Extentions", "libraries", "Software's"
 RUN apt-get update && \
-    apt-get install -y --force-yes \
+    apt-get install -y \
         php7.1-cli \
         php7.1-common \
         php7.1-curl \
@@ -108,7 +108,7 @@ USER dockerhero
 RUN [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
     curl -o- -L https://yarnpkg.com/install.sh | bash; \
     echo "" >> ~/.bashrc && \
-    echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> ~/.bashrc \
+    echo 'export PATH="$HOME/.yarn/bin:$PATH"' >> ~/.bashrc
 
 # Add Yarn binaries to root's .bashrc
 USER root
