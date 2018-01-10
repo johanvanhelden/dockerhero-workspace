@@ -34,6 +34,7 @@ RUN apt-get update && \
         php7.1-curl \
         php7.1-json \
         php7.1-xml \
+        php7.1-imap \
         php7.1-mbstring \
         php7.1-mcrypt \
         php7.1-mysql \
