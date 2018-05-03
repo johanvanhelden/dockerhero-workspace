@@ -29,6 +29,7 @@ RUN apt-get install -y software-properties-common && \
 # Install "PHP Extentions", "libraries", "Software's"
 RUN apt-get update && \
     apt-get install -y \
+        mysql-client \
         php7.1-cli \
         php7.1-common \
         php7.1-curl \
