@@ -12,7 +12,7 @@ ENV LC_CTYPE=UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
-ARG NODE_VERSION=6.*
+ARG NODE_VERSION=8.*
 ENV NODE_VERSION ${NODE_VERSION}
 ENV NVM_DIR /home/dockerhero/.nvm
 
@@ -30,6 +30,7 @@ RUN apt-get install -y software-properties-common && \
 RUN apt-get update && \
     apt-get install -y \
         mysql-client \
+        php7.1-bcmath \
         php7.1-cli \
         php7.1-common \
         php7.1-curl \
