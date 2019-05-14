@@ -30,26 +30,25 @@ RUN apt-get install -y software-properties-common && \
 RUN apt-get update && \
     apt-get install -y \
         mysql-client \
-        php7.1-bcmath \
-        php7.1-cli \
-        php7.1-common \
-        php7.1-curl \
-        php7.1-json \
-        php7.1-xml \
-        php7.1-imap \
-        php7.1-mbstring \
-        php7.1-mcrypt \
-        php7.1-mysql \
-        php7.1-pgsql \
-        php7.1-soap \
-        php7.1-sqlite \
-        php7.1-sqlite3 \
-        php7.1-zip \
-        php7.1-memcached \
-        php7.1-gd \
+        php7.2-bcmath \
+        php7.2-cli \
+        php7.2-common \
+        php7.2-curl \
+        php7.2-json \
+        php7.2-xml \
+        php7.2-imap \
+        php7.2-mbstring \
+        php7.2-mysql \
+        php7.2-pgsql \
+        php7.2-soap \
+        php7.2-sqlite \
+        php7.2-sqlite3 \
+        php7.2-zip \
+        php7.2-memcached \
+        php7.2-gd \
         pkg-config \
-        php7.1-dev \
-        php7.1-redis \
+        php7.2-dev \
+        php7.2-redis \
         libcurl4-openssl-dev \
         libedit-dev \
         libssl-dev \
