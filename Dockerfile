@@ -49,6 +49,7 @@ RUN apt-get update && \
         pkg-config \
         php7.2-dev \
         php7.2-redis \
+        php7.2-xdebug \
         libcurl4-openssl-dev \
         libedit-dev \
         libssl-dev \
