@@ -68,6 +68,7 @@ RUN apt-get update && \
         vim \
         bash-completion \
         xvfb gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
+        locales-all \
     && apt-get clean
 
 #Install chrome - needed for Laravel Dusk
