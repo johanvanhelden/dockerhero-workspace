@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # add artisan as an alias function
-function artisan() {  
+function artisan() {
     php artisan "$@"
 }
 
-_artisan()  
+_artisan()
 {
 
     local cache commands artisanOutput word
@@ -37,4 +37,4 @@ _artisan()
     return 0
 }
 
-complete -o default -F _artisan artisan  
+complete -o default -F _artisan artisan
