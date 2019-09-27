@@ -29,47 +29,50 @@ RUN apt-get install -y software-properties-common && \
 # Install "PHP Extentions", "libraries", "Software's"
 RUN apt-get update && \
     apt-get install -y \
-        mysql-client \
-        php7.2-bcmath \
-        php7.2-cli \
-        php7.2-common \
-        php7.2-curl \
-        php7.2-json \
-        php7.2-xml \
-        php7.2-imap \
-        php7.2-mbstring \
-        php7.2-mysql \
-        php7.2-pgsql \
-        php7.2-soap \
-        php7.2-sqlite \
-        php7.2-sqlite3 \
-        php7.2-zip \
-        php7.2-memcached \
-        php7.2-gd \
-        pkg-config \
-        php7.2-dev \
-        php7.2-redis \
-        php7.2-xdebug \
-        libcurl4-openssl-dev \
-        libedit-dev \
-        libssl-dev \
-        libxml2-dev \
-        xz-utils \
-        libsqlite3-dev \
-        sqlite3 \
-        git \
-        curl \
-        vim \
-        nano \
-        postgresql-client \
-        git \
-        mercurial \
-        zip \
-        vim \
-        bash-completion \
-        xvfb gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
-        locales-all \
+    mysql-client \
+    php7.2-bcmath \
+    php7.2-cli \
+    php7.2-common \
+    php7.2-curl \
+    php7.2-json \
+    php7.2-xml \
+    php7.2-imap \
+    php7.2-mbstring \
+    php7.2-mysql \
+    php7.2-pgsql \
+    php7.2-soap \
+    php7.2-sqlite \
+    php7.2-sqlite3 \
+    php7.2-zip \
+    php7.2-memcached \
+    php7.2-gd \
+    pkg-config \
+    php7.2-dev \
+    php7.2-redis \
+    php7.2-xdebug \
+    libcurl4-openssl-dev \
+    libedit-dev \
+    libssl-dev \
+    libxml2-dev \
+    xz-utils \
+    libsqlite3-dev \
+    sqlite3 \
+    git \
+    curl \
+    vim \
+    nano \
+    postgresql-client \
+    git \
+    mercurial \
+    zip \
+    vim \
+    bash-completion \
+    xvfb gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
+    locales-all \
     && apt-get clean
+
+# Disable Xdebug per default
+RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.2/cli/conf.d/20-xdebug.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
