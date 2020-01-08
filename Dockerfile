@@ -1,6 +1,6 @@
 FROM phusion/baseimage:latest
 
-MAINTAINER Johan van Helden <johan@johanvanhelden.com>
+LABEL maintainer="Johan van Helden <johan@johanvanhelden.com>"
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN locale-gen en_US.UTF-8
@@ -21,6 +21,21 @@ ENV PGID=1000
 
 ARG TZ=Europe/Amsterdam
 ENV TZ ${TZ}
+
+RUN mkdir /opt/oracle \
+    && cd /opt/oracle
+
+RUN apt-get update && apt-get -y install wget unzip && \
+    wget -O /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip && \
+    wget -O /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip && \
+    unzip /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
+    unzip /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
+    ln -s /opt/oracle/instantclient_19_5/libclntsh.so.19.1 /opt/oracle/instantclient_19_5/libclntsh.so && \
+    ln -s /opt/oracle/instantclient_19_5/libclntshcore.so.19.1 /opt/oracle/instantclient_19_5/libclntshcore.so  && \
+    ln -s /opt/oracle/instantclient_19_5/libocci.so.19.1 /opt/oracle/instantclient_19_5/libocci.so  && \
+    rm -rf /opt/oracle/*.zip
+
+ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
 
 # Add the "PHP 7" ppa
 RUN apt-get install -y software-properties-common && \
