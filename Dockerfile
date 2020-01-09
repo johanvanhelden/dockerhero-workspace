@@ -22,21 +22,6 @@ ENV PGID=1000
 ARG TZ=Europe/Amsterdam
 ENV TZ ${TZ}
 
-RUN mkdir /opt/oracle \
-    && cd /opt/oracle
-
-RUN apt-get update && apt-get -y install wget unzip && \
-    wget -O /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip && \
-    wget -O /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip && \
-    unzip /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
-    unzip /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
-    ln -s /opt/oracle/instantclient_19_5/libclntsh.so.19.1 /opt/oracle/instantclient_19_5/libclntsh.so && \
-    ln -s /opt/oracle/instantclient_19_5/libclntshcore.so.19.1 /opt/oracle/instantclient_19_5/libclntshcore.so  && \
-    ln -s /opt/oracle/instantclient_19_5/libocci.so.19.1 /opt/oracle/instantclient_19_5/libocci.so  && \
-    rm -rf /opt/oracle/*.zip
-
-ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
-
 # Add the "PHP 7" ppa
 RUN apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:ondrej/php
@@ -65,12 +50,16 @@ RUN apt-get update && \
     php7.2-dev \
     php7.2-redis \
     php7.2-xdebug \
+    php7.2-dev \
+    php-pear \
+    wget \
+    make \
     libcurl4-openssl-dev \
     libedit-dev \
     libssl-dev \
     libxml2-dev \
-    xz-utils \
     libsqlite3-dev \
+    xz-utils \
     sqlite3 \
     git \
     curl \
@@ -80,6 +69,7 @@ RUN apt-get update && \
     git \
     mercurial \
     zip \
+    unzip \
     vim \
     bash-completion \
     xvfb gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
@@ -88,6 +78,24 @@ RUN apt-get update && \
 
 # Disable Xdebug per default
 RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.2/cli/conf.d/20-xdebug.ini
+
+# Install the Oracle client
+RUN mkdir /opt/oracle \
+    && cd /opt/oracle
+
+RUN wget -O /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip && \
+    wget -O /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip && \
+    unzip /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
+    unzip /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
+    rm -rf /opt/oracle/*.zip
+
+RUN ln -s /opt/oracle/instantclient_19_5/libclntshcore.so.19.1 /opt/oracle/instantclient_19_5/libclntshcore.so
+
+ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
+
+RUN echo 'instantclient,/opt/oracle/instantclient_19_5/' | pecl install oci8
+
+RUN echo 'extension=oci8.so' > /etc/php/7.2/cli/conf.d/30-oci8.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
