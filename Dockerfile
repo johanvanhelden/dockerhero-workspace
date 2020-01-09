@@ -30,6 +30,7 @@ RUN apt-get install -y software-properties-common && \
 RUN apt-get update && \
     apt-get install -y \
     mysql-client \
+    pkg-config \
     php7.2-bcmath \
     php7.2-cli \
     php7.2-common \
@@ -46,8 +47,6 @@ RUN apt-get update && \
     php7.2-zip \
     php7.2-memcached \
     php7.2-gd \
-    pkg-config \
-    php7.2-dev \
     php7.2-redis \
     php7.2-xdebug \
     php7.2-dev \
@@ -96,6 +95,11 @@ ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
 RUN echo 'instantclient,/opt/oracle/instantclient_19_5/' | pecl install oci8
 
 RUN echo 'extension=oci8.so' > /etc/php/7.2/cli/conf.d/30-oci8.ini
+
+# Install the PDO_OCI extension
+ADD pdo_oci /opt/oracle/pdo_oci
+RUN cd /opt/oracle/pdo_oci && phpize && ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient_19_5,19.5 && make && make install
+RUN echo 'extension=pdo_oci.so' > /etc/php/7.2/cli/conf.d/30-pdo_oci.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
