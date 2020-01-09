@@ -38,3 +38,4 @@ $ docker exec --user=dockerhero -it dockerhero-workspace-testing bash
 - Deprecate `bower`
 - Switch to `@vue/cli`
 - Make node 10 the default version
+- Switch to PHP7.3
