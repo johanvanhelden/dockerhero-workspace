@@ -17,8 +17,14 @@ Ensure you are logged in locally to hub.docker.com using `docker login` and have
 $ docker build ./ --tag johanvanhelden/dockerhero-workspace:TAG
 $ docker push johanvanhelden/dockerhero-workspace:TAG
 ```
+
 Replace `TAG` with the tag you are working on.
-Only tag and push this one once you know there are no issues with the current build!
+
+## Development
+
+If you want to test a new feature, create a new tag for it. This way, it can not introduce issues in the production image if something is not working properly.
+
+Once it works, delete the custom tag and introduce it into `latest`
 
 ## Testing the image locally
 
