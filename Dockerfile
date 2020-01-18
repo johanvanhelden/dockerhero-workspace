@@ -12,7 +12,7 @@ ENV LC_CTYPE=UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
-ARG NODE_VERSION=8.*
+ARG NODE_VERSION=10.*
 ENV NODE_VERSION ${NODE_VERSION}
 ENV NVM_DIR /home/dockerhero/.nvm
 
@@ -31,25 +31,25 @@ RUN apt-get update && \
     apt-get install -y \
     mysql-client \
     pkg-config \
-    php7.2-bcmath \
-    php7.2-cli \
-    php7.2-common \
-    php7.2-curl \
-    php7.2-json \
-    php7.2-xml \
-    php7.2-imap \
-    php7.2-mbstring \
-    php7.2-mysql \
-    php7.2-pgsql \
-    php7.2-soap \
-    php7.2-sqlite \
-    php7.2-sqlite3 \
-    php7.2-zip \
-    php7.2-memcached \
-    php7.2-gd \
-    php7.2-redis \
-    php7.2-xdebug \
-    php7.2-dev \
+    php7.3-bcmath \
+    php7.3-cli \
+    php7.3-common \
+    php7.3-curl \
+    php7.3-json \
+    php7.3-xml \
+    php7.3-imap \
+    php7.3-mbstring \
+    php7.3-mysql \
+    php7.3-pgsql \
+    php7.3-soap \
+    php7.3-sqlite \
+    php7.3-sqlite3 \
+    php7.3-zip \
+    php7.3-memcached \
+    php7.3-gd \
+    php7.3-redis \
+    php7.3-xdebug \
+    php7.3-dev \
     php-pear \
     wget \
     make \
@@ -76,7 +76,7 @@ RUN apt-get update && \
     && apt-get clean
 
 # Disable Xdebug per default
-RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.2/cli/conf.d/20-xdebug.ini
+RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.3/cli/conf.d/20-xdebug.ini
 
 # Install the Oracle client
 RUN mkdir /opt/oracle \
@@ -94,12 +94,12 @@ ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
 
 RUN echo 'instantclient,/opt/oracle/instantclient_19_5/' | pecl install oci8
 
-RUN echo 'extension=oci8.so' > /etc/php/7.2/cli/conf.d/30-oci8.ini
+RUN echo 'extension=oci8.so' > /etc/php/7.3/cli/conf.d/30-oci8.ini
 
 # Install the PDO_OCI extension
 ADD pdo_oci /opt/oracle/pdo_oci
 RUN cd /opt/oracle/pdo_oci && phpize && ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient_19_5,19.5 && make && make install
-RUN echo 'extension=pdo_oci.so' > /etc/php/7.2/cli/conf.d/30-pdo_oci.ini
+RUN echo 'extension=pdo_oci.so' > /etc/php/7.3/cli/conf.d/30-pdo_oci.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
@@ -123,7 +123,7 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh
     nvm install ${NODE_VERSION} && \
     nvm use ${NODE_VERSION} && \
     nvm alias ${NODE_VERSION} && \
-    npm install -g gulp bower vue-cli
+    npm install -g gulp @vue/cli
 
 # Wouldn't execute when added to the RUN statement in the above block
 # Source NVM when loading bash since ~/.profile isn't loaded on non-login shell

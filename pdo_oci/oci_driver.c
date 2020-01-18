@@ -16,8 +16,6 @@
   +----------------------------------------------------------------------+
 */
 
-/* $Id$ */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -646,7 +644,7 @@ static int pdo_oci_check_liveness(pdo_dbh_t *dbh) /* {{{ */
 }
 /* }}} */
 
-static struct pdo_dbh_methods oci_methods = {
+static const struct pdo_dbh_methods oci_methods = {
 	oci_handle_closer,
 	oci_handle_preparer,
 	oci_handle_doer,
@@ -798,7 +796,7 @@ cleanup:
 }
 /* }}} */
 
-pdo_driver_t pdo_oci_driver = {
+const pdo_driver_t pdo_oci_driver = {
 	PDO_DRIVER_HEADER(oci),
 	pdo_oci_handle_factory
 };
