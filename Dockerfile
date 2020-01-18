@@ -12,7 +12,7 @@ ENV LC_CTYPE=UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
-ARG NODE_VERSION=8.*
+ARG NODE_VERSION=10.*
 ENV NODE_VERSION ${NODE_VERSION}
 ENV NVM_DIR /home/dockerhero/.nvm
 
@@ -123,7 +123,7 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh
     nvm install ${NODE_VERSION} && \
     nvm use ${NODE_VERSION} && \
     nvm alias ${NODE_VERSION} && \
-    npm install -g gulp bower vue-cli
+    npm install -g gulp @vue/cli
 
 # Wouldn't execute when added to the RUN statement in the above block
 # Source NVM when loading bash since ~/.profile isn't loaded on non-login shell
