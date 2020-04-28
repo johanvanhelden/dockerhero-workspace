@@ -38,6 +38,7 @@ RUN apt-get update && \
     php7.2-json \
     php7.2-xml \
     php7.2-imap \
+    php7.2-intl \
     php7.2-mbstring \
     php7.2-mysql \
     php7.2-pgsql \
