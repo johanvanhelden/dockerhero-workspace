@@ -3,6 +3,7 @@
 https://github.com/johanvanhelden/dockerhero
 
 ## Available tags
+- `php7.4`
 - `php7.3`
 - `php7.2`
 - `php7.1` -> this tag is not maintained and only used for backward compatibility
