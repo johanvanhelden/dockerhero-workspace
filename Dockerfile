@@ -31,26 +31,26 @@ RUN apt-get update && \
     apt-get install -y \
     mysql-client \
     pkg-config \
-    php7.3-bcmath \
-    php7.3-cli \
-    php7.3-common \
-    php7.3-curl \
-    php7.3-json \
-    php7.3-xml \
-    php7.3-imap \
-    php7.3-intl \
-    php7.3-mbstring \
-    php7.3-mysql \
-    php7.3-pgsql \
-    php7.3-soap \
-    php7.3-sqlite \
-    php7.3-sqlite3 \
-    php7.3-zip \
-    php7.3-memcached \
-    php7.3-gd \
-    php7.3-redis \
-    php7.3-xdebug \
-    php7.3-dev \
+    php7.4-bcmath \
+    php7.4-cli \
+    php7.4-common \
+    php7.4-curl \
+    php7.4-json \
+    php7.4-xml \
+    php7.4-imap \
+    php7.4-intl \
+    php7.4-mbstring \
+    php7.4-mysql \
+    php7.4-pgsql \
+    php7.4-soap \
+    php7.4-sqlite \
+    php7.4-sqlite3 \
+    php7.4-zip \
+    php7.4-memcached \
+    php7.4-gd \
+    php7.4-redis \
+    php7.4-xdebug \
+    php7.4-dev \
     php-pear \
     wget \
     make \
@@ -77,7 +77,7 @@ RUN apt-get update && \
     && apt-get clean
 
 # Disable Xdebug per default
-RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.3/cli/conf.d/20-xdebug.ini
+RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.4/cli/conf.d/20-xdebug.ini
 
 # Install the Oracle client
 RUN mkdir /opt/oracle \
@@ -95,12 +95,12 @@ ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
 
 RUN echo 'instantclient,/opt/oracle/instantclient_19_5/' | pecl install oci8
 
-RUN echo 'extension=oci8.so' > /etc/php/7.3/cli/conf.d/30-oci8.ini
+RUN echo 'extension=oci8.so' > /etc/php/7.4/cli/conf.d/30-oci8.ini
 
 # Install the PDO_OCI extension
 ADD pdo_oci /opt/oracle/pdo_oci
 RUN cd /opt/oracle/pdo_oci && phpize && ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient_19_5,19.5 && make && make install
-RUN echo 'extension=pdo_oci.so' > /etc/php/7.3/cli/conf.d/30-pdo_oci.ini
+RUN echo 'extension=pdo_oci.so' > /etc/php/7.4/cli/conf.d/30-pdo_oci.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
