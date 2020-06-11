@@ -51,6 +51,7 @@ RUN apt-get update && \
     php7.3-redis \
     php7.3-xdebug \
     php7.3-dev \
+    php7.3-imagick \
     php-pear \
     wget \
     make \
