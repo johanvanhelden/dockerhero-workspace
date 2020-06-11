@@ -51,6 +51,7 @@ RUN apt-get update && \
     php7.2-redis \
     php7.2-xdebug \
     php7.2-dev \
+    php7.2-imagick \
     php-pear \
     wget \
     make \
