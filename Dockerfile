@@ -55,6 +55,8 @@ RUN apt-get update && \
     php-pear \
     wget \
     make \
+    libaio1 \
+    libaio-dev \
     libcurl4-openssl-dev \
     libedit-dev \
     libssl-dev \
