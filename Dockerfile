@@ -20,7 +20,7 @@ ENV PGID=1000
 ARG TZ=Europe/Amsterdam
 ENV TZ ${TZ}
 
-# Add the "PHP 7" ppa
+# Add the "PHP 8" ppa
 RUN apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:ondrej/php
 
@@ -29,27 +29,26 @@ RUN apt-get update && \
     apt-get install -y \
     mysql-client \
     pkg-config \
-    php7.4-bcmath \
-    php7.4-cli \
-    php7.4-common \
-    php7.4-curl \
-    php7.4-json \
-    php7.4-xml \
-    php7.4-imap \
-    php7.4-intl \
-    php7.4-mbstring \
-    php7.4-mysql \
-    php7.4-pgsql \
-    php7.4-soap \
-    php7.4-sqlite \
-    php7.4-sqlite3 \
-    php7.4-zip \
-    php7.4-memcached \
-    php7.4-gd \
-    php7.4-redis \
-    php7.4-xdebug \
-    php7.4-dev \
-    php7.4-imagick \
+    php8.0-bcmath \
+    php8.0-cli \
+    php8.0-common \
+    php8.0-curl \
+    php8.0-xml \
+    php8.0-imap \
+    php8.0-intl \
+    php8.0-mbstring \
+    php8.0-mysql \
+    php8.0-pgsql \
+    php8.0-soap \
+    php8.0-sqlite \
+    php8.0-sqlite3 \
+    php8.0-zip \
+    php8.0-memcached \
+    php8.0-gd \
+    php8.0-redis \
+    php8.0-xdebug \
+    php8.0-dev \
+    php8.0-imagick \
     php-pear \
     wget \
     make \
@@ -78,30 +77,7 @@ RUN apt-get update && \
     && apt-get clean
 
 # Disable Xdebug per default
-RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.4/cli/conf.d/20-xdebug.ini
-
-# Install the Oracle client
-RUN mkdir /opt/oracle \
-    && cd /opt/oracle
-
-RUN wget -O /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip && \
-    wget -O /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip && \
-    unzip /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
-    unzip /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
-    rm -rf /opt/oracle/*.zip
-
-RUN ln -s /opt/oracle/instantclient_19_5/libclntshcore.so.19.1 /opt/oracle/instantclient_19_5/libclntshcore.so
-
-ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
-
-RUN echo 'instantclient,/opt/oracle/instantclient_19_5/' | pecl install oci8
-
-RUN echo 'extension=oci8.so' > /etc/php/7.4/cli/conf.d/30-oci8.ini
-
-# Install the PDO_OCI extension
-ADD pdo_oci /opt/oracle/pdo_oci
-RUN cd /opt/oracle/pdo_oci && phpize && ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient_19_5,19.5 && make && make install
-RUN echo 'extension=pdo_oci.so' > /etc/php/7.4/cli/conf.d/30-pdo_oci.ini
+RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/8.0/cli/conf.d/20-xdebug.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
