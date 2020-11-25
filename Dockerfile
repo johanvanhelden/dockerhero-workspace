@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM phusion/baseimage:master-amd64
 
 LABEL maintainer="Johan van Helden <johan@johanvanhelden.com>"
 
@@ -12,8 +12,6 @@ ENV LC_CTYPE=UTF-8
 ENV LANG=en_US.UTF-8
 ENV TERM xterm
 
-ARG NODE_VERSION=10.*
-ENV NODE_VERSION ${NODE_VERSION}
 ENV NVM_DIR /home/dockerhero/.nvm
 
 ENV PUID=1000
@@ -51,9 +49,12 @@ RUN apt-get update && \
     php7.4-redis \
     php7.4-xdebug \
     php7.4-dev \
+    php7.4-imagick \
     php-pear \
     wget \
     make \
+    libaio1 \
+    libaio-dev \
     libcurl4-openssl-dev \
     libedit-dev \
     libssl-dev \
@@ -121,10 +122,12 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 USER dockerhero
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
-    nvm install ${NODE_VERSION} && \
-    nvm use ${NODE_VERSION} && \
-    nvm alias ${NODE_VERSION} && \
-    npm install -g gulp @vue/cli
+    nvm install 10 && \
+    nvm install 12 && \
+    nvm install 14 && \
+    nvm use 14 && \
+    nvm alias default 14 && \
+    npm install -g @vue/cli
 
 # Wouldn't execute when added to the RUN statement in the above block
 # Source NVM when loading bash since ~/.profile isn't loaded on non-login shell
