@@ -3,6 +3,7 @@
 https://github.com/johanvanhelden/dockerhero
 
 ## Available tags
+- `php8.0`
 - `php7.4`
 - `php7.3`
 - `php7.2`
