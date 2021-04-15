@@ -6,7 +6,7 @@ https://github.com/johanvanhelden/dockerhero
 - `php8.0`
 - `php7.4`
 - `php7.3`
-- `php7.2`
+- `php7.2` -> this tag is not maintained and only used for backward compatibility
 - `php7.1` -> this tag is not maintained and only used for backward compatibility
 - `latest` -> this tag is not maintained and only used for backward compatibility
 
