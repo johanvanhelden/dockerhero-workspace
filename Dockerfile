@@ -80,29 +80,6 @@ RUN apt-get update && \
 # Disable Xdebug per default
 RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/7.4/cli/conf.d/20-xdebug.ini
 
-# Install the Oracle client
-RUN mkdir /opt/oracle \
-    && cd /opt/oracle
-
-RUN wget -O /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip && \
-    wget -O /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip https://github.com/johanvanhelden/dockerhero-oracle/raw/master/19.5/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip && \
-    unzip /opt/oracle/instantclient-basic-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
-    unzip /opt/oracle/instantclient-sdk-linux.x64-19.5.0.0.0dbru.zip -d /opt/oracle && \
-    rm -rf /opt/oracle/*.zip
-
-RUN ln -s /opt/oracle/instantclient_19_5/libclntshcore.so.19.1 /opt/oracle/instantclient_19_5/libclntshcore.so
-
-ENV LD_LIBRARY_PATH  /opt/oracle/instantclient_19_5:${LD_LIBRARY_PATH}
-
-RUN echo 'instantclient,/opt/oracle/instantclient_19_5/' | pecl install oci8
-
-RUN echo 'extension=oci8.so' > /etc/php/7.4/cli/conf.d/30-oci8.ini
-
-# Install the PDO_OCI extension
-ADD pdo_oci /opt/oracle/pdo_oci
-RUN cd /opt/oracle/pdo_oci && phpize && ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient_19_5,19.5 && make && make install
-RUN echo 'extension=pdo_oci.so' > /etc/php/7.4/cli/conf.d/30-pdo_oci.ini
-
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
