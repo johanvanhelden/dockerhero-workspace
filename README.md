@@ -6,7 +6,7 @@ https://github.com/johanvanhelden/dockerhero
 - `php8.0`
 - `php7.4`
 - `php7.3`
-- `php7.2`
+- `php7.2` -> this tag is not maintained and only used for backward compatibility
 - `php7.1` -> this tag is not maintained and only used for backward compatibility
 - `latest` -> this tag is not maintained and only used for backward compatibility
 
@@ -33,4 +33,68 @@ Once it works, delete the custom tag and introduce it into `latest`
 ```
 $ docker-compose up --build
 $ docker exec --user=dockerhero -it dockerhero-workspace-testing bash
+```
+
+## Enabled PHP modules
+```
+bcmath
+calendar
+Core
+ctype
+curl
+date
+dom
+exif
+fileinfo
+filter
+ftp
+gd
+gettext
+hash
+iconv
+igbinary
+imagick
+imap
+intl
+json
+libxml
+mbstring
+memcached
+msgpack
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+pdo_pgsql
+pdo_sqlite
+pgsql
+Phar
+posix
+readline
+redis
+Reflection
+session
+shmop
+SimpleXML
+soap
+sockets
+sodium
+SPL
+sqlite3
+standard
+sysvmsg
+sysvsem
+sysvshm
+tokenizer
+wddx
+xml
+xmlreader
+xmlwriter
+xsl
+Zend OPcache
+zip
+zlib
 ```
