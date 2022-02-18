@@ -38,6 +38,7 @@ RUN apt-get update && \
     php8.0-intl \
     php8.0-mbstring \
     php8.0-mysql \
+    php8.0-pcov \
     php8.0-pgsql \
     php8.0-soap \
     php8.0-sqlite \
@@ -96,13 +97,14 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 
 # Install nvm (A Node Version Manager)
 USER dockerhero
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.6/install.sh | bash && \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
-    nvm install 10 && \
     nvm install 12 && \
     nvm install 14 && \
-    nvm use 14 && \
-    nvm alias default 14 && \
+    nvm install 16 && \
+    nvm install 17 && \
+    nvm use 16 && \
+    nvm alias default 16 && \
     npm install -g @vue/cli
 
 # Wouldn't execute when added to the RUN statement in the above block
