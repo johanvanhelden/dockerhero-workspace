@@ -77,6 +77,11 @@ RUN apt-get update && \
     locales-all \
     && apt-get clean
 
+# Force the proper PHP version
+RUN update-alternatives --set php /usr/bin/php8.1 && \
+    update-alternatives --set phar /usr/bin/phar8.1 && \
+    update-alternatives --set phar.phar /usr/bin/phar.phar8.1
+
 # Disable Xdebug per default
 RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/8.1/cli/conf.d/20-xdebug.ini
 
