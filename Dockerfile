@@ -76,6 +76,7 @@ RUN apt-get update && \
     bash-completion \
     xvfb gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi xfonts-base xfonts-scalable imagemagick x11-apps \
     locales-all \
+    wkhtmltopdf \
     && apt-get clean
 
 # Disable Xdebug per default
