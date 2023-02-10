@@ -2,15 +2,6 @@
 
 https://github.com/johanvanhelden/dockerhero
 
-## Available tags
-- `php8.1`
-- `php8.0`
-- `php7.4`
-- `php7.3` -> this tag is not maintained and only used for backward compatibility
-- `php7.2` -> this tag is not maintained and only used for backward compatibility
-- `php7.1` -> this tag is not maintained and only used for backward compatibility
-- `latest` -> this tag is not maintained and only used for backward compatibility
-
 ## Building and publishing
 
 Ensure you are logged in locally to hub.docker.com using `docker login` and have access to the hub repository.
