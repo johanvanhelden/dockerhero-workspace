@@ -3,9 +3,10 @@
 https://github.com/johanvanhelden/dockerhero
 
 ## Available tags
+- `php8.2`
 - `php8.1`
 - `php8.0`
-- `php7.4`
+- `php7.4` -> this tag is not maintained and only used for backward compatibility
 - `php7.3` -> this tag is not maintained and only used for backward compatibility
 - `php7.2` -> this tag is not maintained and only used for backward compatibility
 - `php7.1` -> this tag is not maintained and only used for backward compatibility
@@ -76,6 +77,7 @@ pdo_sqlite
 pgsql
 Phar
 posix
+random
 readline
 redis
 Reflection
