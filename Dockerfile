@@ -29,27 +29,27 @@ RUN apt-get update && \
     apt-get install -y \
     mysql-client \
     pkg-config \
-    php8.1-bcmath \
-    php8.1-cli \
-    php8.1-common \
-    php8.1-curl \
-    php8.1-xml \
-    php8.1-imap \
-    php8.1-intl \
-    php8.1-mbstring \
-    php8.1-mysql \
-    php8.1-pcov \
-    php8.1-pgsql \
-    php8.1-soap \
-    php8.1-sqlite \
-    php8.1-sqlite3 \
-    php8.1-zip \
-    php8.1-memcached \
-    php8.1-gd \
-    php8.1-redis \
-    php8.1-xdebug \
-    php8.1-dev \
-    php8.1-imagick \
+    php8.2-bcmath \
+    php8.2-cli \
+    php8.2-common \
+    php8.2-curl \
+    php8.2-xml \
+    php8.2-imap \
+    php8.2-intl \
+    php8.2-mbstring \
+    php8.2-mysql \
+    php8.2-pcov \
+    php8.2-pgsql \
+    php8.2-soap \
+    php8.2-sqlite \
+    php8.2-sqlite3 \
+    php8.2-zip \
+    php8.2-memcached \
+    php8.2-gd \
+    php8.2-redis \
+    php8.2-xdebug \
+    php8.2-dev \
+    php8.2-imagick \
     php-pear \
     wget \
     make \
@@ -79,12 +79,12 @@ RUN apt-get update && \
     && apt-get clean
 
 # Force the proper PHP version
-RUN update-alternatives --set php /usr/bin/php8.1 && \
-    update-alternatives --set phar /usr/bin/phar8.1 && \
-    update-alternatives --set phar.phar /usr/bin/phar.phar8.1
+RUN update-alternatives --set php /usr/bin/php8.2 && \
+    update-alternatives --set phar /usr/bin/phar8.2 && \
+    update-alternatives --set phar.phar /usr/bin/phar.phar8.2
 
 # Disable Xdebug per default
-RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/8.1/cli/conf.d/20-xdebug.ini
+RUN sed -i 's/^zend_extension=/;zend_extension=/g' /etc/php/8.2/cli/conf.d/20-xdebug.ini
 
 #Install chrome - needed for Laravel Dusk
 RUN curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
@@ -103,15 +103,14 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 
 # Install nvm (A Node Version Manager)
 USER dockerhero
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash && \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.3/install.sh | bash && \
     . $NVM_DIR/nvm.sh && \
-    nvm install 12 && \
-    nvm install 14 && \
     nvm install 16 && \
     nvm install 17 && \
-    nvm use 16 && \
-    nvm alias default 16 && \
-    npm install -g @vue/cli
+    nvm install 18 && \
+    nvm install 19 && \
+    nvm use 18 && \
+    nvm alias default 18
 
 # Wouldn't execute when added to the RUN statement in the above block
 # Source NVM when loading bash since ~/.profile isn't loaded on non-login shell
